@@ -12,7 +12,7 @@ export const FundMeProvider = ({ children }) => {
   const [balance, setBalance] = useState('');
   const [funders, setFunders] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
-
+  const [contractOwner,setContractOwner] = useState('');
   const fundMeContractAddress = "0x76B2fCE3046cf648D382dDD51E8d8459137106Ff"; // Replace with your deployed contract address
 
   useEffect(() => {
@@ -34,8 +34,11 @@ export const FundMeProvider = ({ children }) => {
 
           // Get the owner of the contract
           const owner = await _contract.i_owner();
-          setIsOwner(owner.toLowerCase() === accounts[0].toLowerCase());
+          setContractOwner(owner);
+          
 
+          setIsOwner(owner.toLowerCase() === accounts[0].toLowerCase());
+          
           // Get initial contract balance
           getContractBalance();
 
