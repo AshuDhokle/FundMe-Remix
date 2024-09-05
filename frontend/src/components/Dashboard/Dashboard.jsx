@@ -3,6 +3,7 @@ import Fund from './Fund';
 import { FundMeContext } from '../../context/fundMeContext';
 import Discription from './Discription';
 import ImpactAndHelp from './ImpactAndHelp';
+import DonatorList from '../Donators/Donators';
 
 export const Dashboard = () => {
   const { balance, contractOwner } = useContext(FundMeContext);
@@ -19,6 +20,7 @@ export const Dashboard = () => {
       </div>
       
       <ImpactAndHelp />
+      <DonatorList/>
     </div>
   );
 };

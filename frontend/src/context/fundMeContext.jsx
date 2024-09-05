@@ -13,8 +13,10 @@ export const FundMeProvider = ({ children }) => {
   const [funders, setFunders] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
   const [contractOwner,setContractOwner] = useState('');
-  const fundMeContractAddress = "0x76B2fCE3046cf648D382dDD51E8d8459137106Ff"; // Replace with your deployed contract address
-
+  const [fundersToAmount,setFundersToAmount] = useState();
+  const [contractBalance,setContractBalance] = useState(0);
+  const fundMeContractAddress = "0x5e9de9750a74bf3df06fe8dbdb8450cc32e7186d"; // Replace with your deployed contract address
+  
   useEffect(() => {
     const initBlockchain = async () => {
       if (window.ethereum) {
@@ -35,13 +37,16 @@ export const FundMeProvider = ({ children }) => {
           // Get the owner of the contract
           const owner = await _contract.i_owner();
           setContractOwner(owner);
-          
-
           setIsOwner(owner.toLowerCase() === accounts[0].toLowerCase());
           
+          fetchFunders();
+          
           // Get initial contract balance
-          getContractBalance();
-
+          const bal = await _contract.totalRaised();
+          setBalance(ethers.utils.formatEther(bal));
+          
+          setContractBalance();
+          
         } catch (error) {
           console.error("Error initializing blockchain:", error);
         }
@@ -57,7 +62,7 @@ export const FundMeProvider = ({ children }) => {
     if (contract) {
       try {
         const balance = await provider.getBalance(contract.address);
-        setBalance(ethers.utils.formatEther(balance));
+        setContractBalance(ethers.utils.formatEther(balance));
       } catch (error) {
         console.error("Failed to fetch contract balance:", error);
       }
@@ -89,6 +94,24 @@ export const FundMeProvider = ({ children }) => {
     }
   };
 
+  const fetchFunders = async() =>{
+    if(contract){
+      try {
+        const donators = await contract.getFunders();
+        
+        setFunders(donators);
+        for(let i = 0;i<donators.length;i++){
+          const amountFunded = await contract.addressToAmountFunded(donators[i]);
+        
+          setFundersToAmount({...fundersToAmount,[donators[i]] : ethers.utils.formatEther(amountFunded)})
+        }
+      } catch (error) {
+        console.log("Something went wrong");  
+      }
+    }
+  }  
+  
+
   return (
     <FundMeContext.Provider
       value={{
@@ -99,6 +122,8 @@ export const FundMeProvider = ({ children }) => {
         getContractBalance,
         funders,
         isOwner,
+        fundersToAmount,
+        contractBalance,
       }}
     >
       {children}

@@ -74,12 +74,38 @@
 			},
 			{
 				"inputs": [],
+				"name": "getFunders",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "i_owner",
 				"outputs": [
 					{
 						"internalType": "address",
 						"name": "",
 						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalRaised",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -133,11 +159,11 @@
 			]
 		},
 		"contracts/fundMe.sol": {
-			"keccak256": "0x6c501f01fa0c83427981d024db026711a4943ec802d5c005a8c49d810ff27717",
+			"keccak256": "0x45b0e26f42e6f0911f8469d642e3040bc65ced22daf16a2be0d7e1587ddc3d2b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2bd48335f4464c10e3df4d61d8c80b463559843f24d8a379d9b67bc3b9e899e4",
-				"dweb:/ipfs/QmP3bdL8P2vUHvkjYMW2ckrUedZea3eep8z2Kx76XTxSXL"
+				"bzz-raw://99e4a04f6f2ab9d9a799815ae9bcd83d28b41940d54dd37196cf139122877ae7",
+				"dweb:/ipfs/QmTDWVYDUdHpMi3fawgrHUANDmse8Enpmn9sBFKBjCVwbo"
 			]
 		},
 		"contracts/priceConverter.sol": {

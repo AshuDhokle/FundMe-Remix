@@ -10,6 +10,7 @@ contract FundMe{
    address public immutable i_owner;
    address[] public funders;
    mapping(address=>uint256) public addressToAmountFunded;
+   uint256 public totalRaised = 0;
 
    constructor() {
       i_owner = msg.sender;
@@ -19,16 +20,10 @@ contract FundMe{
     require(msg.value.getConversionRate() >= MIN_USD, "Minimun amount 50INR");
     funders.push(msg.sender);
     addressToAmountFunded[msg.sender] = msg.value;
+    totalRaised += msg.value;
    }
    
    function withdraw() public onlyOwner{
-      for(uint256 idx = 0;idx<funders.length;idx++){
-         address funderAddress = funders[idx];
-         addressToAmountFunded[funderAddress] = 0;
-      }
-
-      funders = new address[](0);
-
       //transfer
       //payable(msg.sender).transfer(address(this).balance);
 
@@ -41,11 +36,15 @@ contract FundMe{
       require(callSuccess,"Send Failed");
    } 
    
+   function getFunders() public view returns(address[] memory){
+      return funders;
+   }
+
    modifier onlyOwner{
       require(msg.sender == i_owner,"Only owner can call this function");
       _;
    }
-
+ 
    receive() external  payable {
       fund();
    }

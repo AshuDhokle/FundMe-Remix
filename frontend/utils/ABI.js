@@ -66,6 +66,19 @@ export const fundMeAbi = [
 	},
 	{
 		"inputs": [],
+		"name": "getFunders",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "i_owner",
 		"outputs": [
 			{
@@ -80,6 +93,19 @@ export const fundMeAbi = [
 	{
 		"inputs": [],
 		"name": "MIN_USD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalRaised",
 		"outputs": [
 			{
 				"internalType": "uint256",
